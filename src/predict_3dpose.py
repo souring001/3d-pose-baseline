@@ -417,7 +417,7 @@ def sample():
   print( "done reading and normalizing data." )
 
   device_count = {"GPU": 0} if FLAGS.use_cpu else {"GPU": 1}
-  with tf.Session(config=tf.ConfigProto( device_count = device_count )) as sess:
+  with tf.Session(config=tf.ConfigProto( device_count = device_count )) as sess: #GPUの数を制限
     # === Create the model ===
     print("Creating %d layers of %d units." % (FLAGS.num_layers, FLAGS.linear_size))
     batch_size = 128
