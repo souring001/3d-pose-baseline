@@ -457,7 +457,7 @@ def sample():
         all_poses_3d.append( poses3d )
 
       # Put all the poses together
-      enc_in, dec_out, poses3d = map( np.vstack, [enc_in, dec_out, all_poses_3d] )
+      enc_in, dec_out, poses3d = map( np.vstack, [enc_in, dec_out, all_poses_3d] ) #listをnpにしてる
 
       # Convert back to world coordinates
       if FLAGS.camera_frame:

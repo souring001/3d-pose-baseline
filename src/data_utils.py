@@ -228,6 +228,22 @@ def normalization_stats(complete_data, dim, predict_14=False ):
   return data_mean, data_std, dimensions_to_ignore, dimensions_to_use
 
 
+def get_dim_to_ignore(dim):
+    if dim == 2:
+        dimensions_to_use    = np.where(np.array([x != '' and x != 'Neck/Nose' for x in H36M_NAMES]))[0]
+        dimensions_to_use    = np.sort( np.hstack( (dimensions_to_use*2, dimensions_to_use*2+1)))
+        dimensions_to_ignore = np.delete( np.arange(len(H36M_NAMES)*2), dimensions_to_use )
+    else:
+        dimensions_to_use = np.where(np.array([x != '' for x in H36M_NAMES]))[0]
+        dimensions_to_use = np.delete( dimensions_to_use, [0,7,9] if False else 0 )
+
+        dimensions_to_use = np.sort( np.hstack( (dimensions_to_use*3,
+                                                 dimensions_to_use*3+1,
+                                                 dimensions_to_use*3+2)))
+        dimensions_to_ignore = np.delete( np.arange(len(H36M_NAMES)*3), dimensions_to_use )
+    return dimensions_to_ignore
+
+
 def transform_world_to_camera(poses_set, cams, ncams=4 ):
     """
     Project 3d poses from world coordinate to camera coordinate system
